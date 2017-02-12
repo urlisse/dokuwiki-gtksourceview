@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language _name="DokuWiki" _section="Markup" version="2.0" id="dokuwiki">
+<!--
+
+This file enables Syntax coloration of DokuWiki files in the gedit
+text editor and other GtkSourceView compatible applications.
+
+Author: Stéphane Lussier <stephane.lussier@gmail.com>
+
+This language definition file is to be used with GtkSourceView
+
+GtkSourceView is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+GtkSourceView is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+
+A copy is provided with this package (see LICENSE) or can be obtained at:
+
+http://www.gnu.org/licenses/lgpl-3.0.html
+
+-->
+  <metadata>
+    <property name="mimetypes">text/x-dokuwiki</property>
+    <property name="globs">*.doku;*.dokuwiki</property>
+  </metadata>
+
+  <styles>
+    <style id="regular"         _name="Regular"           map-to="def:text"/>
+    <style id="emphasis"        _name="Emphasis"          map-to="def:statement"/>
+    <style id="highlighted"     _name="Hilighted"         map-to="def:underlined"/>
+    <style id="inserted"        _name="Inserted Content"  map-to="def:underlined"/>
+    <style id="deleted"         _name="Deleted Content"   map-to="def:underlined"/>
+    <style id="headline"        _name="Headline"          map-to="def:type"/>
+    <style id="list"            _name="List"              map-to="def:string"/>
+    <style id="link"            _name="Link"              map-to="def:identifier"/>
+    <style id="email"           _name="Email Address"     map-to="def:identifier"/>
+    <style id="embed"           _name="Embedded Content"  map-to="def:preprocessor"/>
+    <style id="url"             _name="URL"               map-to="def:identifier"/>
+    <style id="caption"         _name="Caption"           map-to="def:docomment-lines"/>
+    <style id="tag"             _name="XML/HTML Tag"      map-to="def:preprocessor"/>
+    <style id="table-head"      _name="Table Header"      map-to="def:string"/>
+    <style id="table-body"      _name="Table Body"        map-to="def:text"/>
+    <style id="table-symbol"    _name="Table Delimiter"   map-to="def:type"/>
+    <style id="keyword"         _name="Conversions"       map-to="def:note" />
+    <style id="macro"           _name="Macro Instruction" map-to="def:note"/>
+    <style id="param"           _name="Parameter"         map-to="def:floating-point"/>
+    <style id="sequence"        _name="Special sequence"  map-to="def:special-char"/>
+    <style id="label"           _name="Label"             map-to="def:string"/>
+    <style id="note"            _name="Note"              map-to="def:doc-comment"/>
+    <style id="quote"           _name="Quotation"         map-to="def:doc-comment-element"/>
+    <style id="comment"         _name="Comment"           map-to="def:comment"/>
+    <style id="preformatted"    _name="Unformattted Text" map-to="def:shebang"/>
+    <style id="code"            _name="Code"              map-to="def:comment"/>
+  </styles>
+
+  <definitions>
+		<context id="emphasis" style-ref="emphasis">
+      <match>[/]{2}[^/]+[/]{2}</match>
+		</context>
+
+		<context id="strong-emphasis" style-ref="emphasis">
+      <match>[*]{2}[^*]+[*]{2}</match>
+		</context>
+
+		<context id="underlined" style-ref="emphasis">
+			<match>__[^_]+__</match>
+		</context>
+
+		<context id="monospaced" style-ref="preformatted">
+      <match>[']{2}[^']+[']{2}</match>
+		</context>
+
+		<context id="highlighted" style-ref="highlighted">
+      <match>([!]{2}[^>]*[>])[^!]+([!]{2})</match>
+      <include>
+        <context sub-pattern="1" style-ref="note"/>
+        <context sub-pattern="2" style-ref="note"/>
+      </include>
+		</context>
+
+		<context id="inserted" style-ref="inserted">
+      <match>([+]{2}[^>]*[>])[^+]+([+]{2})</match>
+      <include>
+        <context sub-pattern="1" style-ref="note"/>
+        <context sub-pattern="2" style-ref="note"/>
+      </include>
+		</context>
+
+		<context id="deleted" style-ref="deleted">
+      <match>([-]{2}[^>]*[>])[^-]+([-]{2})</match>
+      <include>
+        <context sub-pattern="1" style-ref="note"/>
+        <context sub-pattern="2" style-ref="note"/>
+      </include>
+		</context>
+
+		<context id="ins" style-ref="regular">
+			<start>&lt;ins([ ]+[^&gt;]+)?&gt;</start>
+			<end>&lt;\/ins&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+				<context style-ref="inserted" extend-parent="false">
+          <match>.+</match>
+        </context>
+      </include>
+		</context>
+
+		<context id="del" style-ref="regular">
+			<start>&lt;del([ ]+[^&gt;]+)?&gt;</start>
+			<end>&lt;\/del&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+				<context style-ref="deleted" extend-parent="false">
+          <match>.+</match>
+        </context>
+      </include>
+		</context>
+
+		<context id="url" style-ref="url" extend-parent="false">
+      <match>\%{def:net-address}|www\.[a-zA-Z0-9\-]+\.[a-zA-Z]+</match>
+		</context>
+
+		<context id="email" style-ref="email">
+			<match>\%{def:email-address}|&lt;\%{def:email-address}&gt;</match>
+		</context>
+
+    <context id="embed" style-ref="label">
+      <start>[{]{2}([ ]*[^ ?=|\}]+)?[ ?=]?([^|\}]+)?[|]?</start>
+      <end>[}]{2}</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="embed"/>
+        <context sub-pattern="2" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="embed"/>
+			</include>
+		</context>
+
+    <context id="link" style-ref="label">
+      <start>\[{2}[^|\]]*(\|)?</start>
+      <end>\]{2}</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="link"/>
+        <context sub-pattern="0" where="end" style-ref="link"/>
+			  <context ref="embed" />
+			</include>
+		</context>
+
+		<context id="headline" style-ref="headline" end-at-line-end="true">
+			<start>==+</start>
+			<end>==+</end>
+		</context>
+
+		<context id="footnote" style-ref="note">
+			<match>[(]{2}.*[)]{2}</match>
+		</context>
+
+		<context id="list" style-ref="list">
+			<match>([ ]{2})+[\*\-][ ]</match>
+		</context>
+
+		<context id="definition-list">
+			<match extended="true">^[ ]{2}([;]\s*([^:]+)\s*[:]?|[:])</match>
+			<include>
+				<context sub-pattern="1" style-ref="list"/>
+			</include>
+		</context>
+
+    <context id="table-symbol" style-ref="table-symbol">
+      <match>\||\^|:::</match>
+    </context>
+
+    <context id="table-head" style-ref="table-head" end-at-line-end="true">
+			<start>^(\^)</start>
+      <end>(\^)$</end>
+			<include>
+        <context sub-pattern="1" where="start" style-ref="table-symbol"/>
+        <context sub-pattern="1" where="end" style-ref="table-symbol"/>
+        <context ref="raw" />
+				<context ref="style" />
+				<context ref="element" />
+				<context ref="table-symbol" />
+	  	</include>
+		</context>
+
+    <context id="table-body" style-ref="table-body" end-at-line-end="true">
+			<start>^[|]</start>
+      <end>[|]$</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="table-symbol"/>
+        <context sub-pattern="0" where="end" style-ref="table-symbol"/>
+        <context ref="raw" />
+				<context ref="style" />
+				<context ref="element" />
+				<context ref="table-symbol" />
+	  	</include>
+		</context>
+
+		<context id="quote" style-ref="quote">
+			<match>^&gt;+ .*</match>
+		</context>
+
+    <context id="html-tag" style-ref="tag">
+			<match>&lt;\w[a-zA-Z0-9-_]*([ ]+[^&gt;]+)?[/][ ]*&gt;</match>
+      <include>
+        <context sub-pattern="1" style-ref="param"/>
+			</include>
+		</context>
+
+    <context id="tag" style-ref="regular">
+      <start>&lt;\w[a-zA-Z0-9-_]*([ ]+[^&gt;]+)?&gt;</start>
+      <end>&lt;\/\w[a-zA-Z0-9-_]*&gt;</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+				<context ref="tag" />
+				<context ref="style" />
+				<context ref="element" />
+				<context ref="raw" />
+				<context ref="string" />
+      </include>
+		</context>
+
+		<context id="preformatted" style-ref="preformatted">
+			<match>^[ ]{2}.*$</match>
+		</context>
+
+		<context id="escape" style-ref="preformatted">
+			<start>%%</start>
+			<end>%%</end>
+		</context>
+
+		<context id="comment-line" style-ref="comment">
+      <match>\/\/[ ].+$</match>
+		</context>
+
+		<context id="comment-lines" style-ref="comment">
+      <start>^\/\*|[ ]\/\*</start>
+      <end>\*\/</end>
+		</context>
+
+		<context id="nowiki" style-ref="preformatted">
+			<start>&lt;nowiki&gt;</start>
+			<end>&lt;\/nowiki&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+			</include>
+		</context>
+
+		<context id="code" style-ref="code">
+			<start>&lt;code([ ]+[^&gt;]+)?&gt;</start>
+			<end>&lt;\/code&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+				<context ref="file" />
+			</include>
+		</context>
+
+		<context id="file" style-ref="quote">
+			<start>&lt;file([ ]+[^&gt;]+)?&gt;</start>
+			<end>&lt;\/file&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+			</include>
+		</context>
+
+		<context id="latex" style-ref="code">
+      <start>&lt;latex([ ]+[^&gt;]+)?&gt;</start>
+      <end>&lt;/latex&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+        <context ref="latex:in-math" />
+      </include>
+    </context>
+
+		<context id="graphviz" style-ref="code">
+			<start>&lt;graphviz([ ]+dot)?&gt;</start>
+			<end>&lt;\/graphviz&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+				<context ref="dot:dot" />
+			</include>
+		</context>
+
+		<context id="php" style-ref="code">
+			<start>&lt;(?:php|PHP)([ ]+[^&gt;]+)?&gt;</start>
+			<end>&lt;\/(?:php|PHP)&gt;</end>
+			<include>
+        <context sub-pattern="0" where="start" style-ref="tag"/>
+        <context sub-pattern="1" where="start" style-ref="param"/>
+        <context sub-pattern="0" where="end" style-ref="tag"/>
+				<context ref="php:cpp-line-comment"/>
+				<context ref="php:bash-line-comment"/>
+				<context ref="php:c-block-comment"/>
+				<context ref="php:double-quoted-string"/>
+				<context ref="php:single-quoted-string"/>
+				<context ref="php:backtick-string"/>
+				<context ref="php:here-doc-string"/>
+				<context ref="php:now-doc-string"/>
+				<context ref="php:variable"/>
+				<context ref="php:array-operators"/>
+				<context ref="php:keywords"/>
+				<context ref="php:operators"/>
+				<context ref="php:type"/>
+				<context ref="php:null-value"/>
+				<context ref="php:boolean"/>
+				<context ref="php:float"/>
+				<context ref="php:decimal-number"/>
+				<context ref="php:octal-number"/>
+				<context ref="php:hexadecimal-number"/>
+				<context ref="php:identifier"/>
+			</include>
+		</context>
+
+		<context id="keywords" style-ref="keyword">
+			<keyword>FIXME</keyword>
+			<keyword>DELETEME</keyword>
+		</context>
+
+		<context id="macro" style-ref="macro">
+      <match>\~{2}[:\w]+\~{2}</match>
+		</context>
+
+    <context id="sequence">
+      <include>
+        <context id="commerce" style-ref="sequence">
+          <match>[(](tm|c|r)[)]</match>
+        </context>
+
+        <context id="arrow" style-ref="sequence">
+          <match>[&lt;][=-][&gt;]?|[=-][&gt;]|[&lt;]{2}|[&gt;]{2}</match>
+        </context>
+
+        <context id="dash" style-ref="sequence">
+          <match>[-]{2,4}</match>
+        </context>
+
+        <context id="newline" style-ref="sequence">
+          <match>\\\\(\s|$)</match>
+        </context>
+      </include>
+    </context>
+
+    <context id="html">
+      <include>
+				<context ref="ins" />
+				<context ref="del" />
+        <context ref="latex" />
+        <context ref="graphviz" />
+        <context ref="code" />
+        <context ref="php" />
+        <context ref="file" />
+				<context ref="nowiki" />
+				<context ref="html-tag" />
+				<context ref="tag" />
+      </include>
+		</context>
+
+    <context id="style">
+      <include>
+				<context ref="emphasis" />
+				<context ref="strong-emphasis" />
+				<context ref="underlined" />
+				<context ref="monospaced" />
+      </include>
+		</context>
+
+    <context id="element">
+      <include>
+				<context ref="link" />
+				<context ref="email" />
+				<context ref="embed" />
+				<context ref="url" />
+				<context ref="highlighted" />
+				<context ref="inserted" />
+				<context ref="deleted" />
+				<context ref="footnote" />
+      </include>
+    </context>
+
+    <context id="structure">
+      <include>
+				<context ref="headline" />
+				<context ref="list" />
+				<context ref="definition-list" />
+				<context ref="table-head" />
+				<context ref="table-body" />
+				<context ref="quote" />
+				<context ref="preformatted" />
+      </include>
+    </context>
+
+    <context id="raw">
+      <include>
+				<context ref="comment-lines" />
+				<context ref="comment-line" />
+				<context ref="escape" />
+      </include>
+    </context>
+
+    <context id="string">
+      <include>
+        <context ref="keywords" />
+        <context ref="macro" />
+				<context ref="sequence" />
+      </include>
+    </context>
+
+    <context id="dokuwiki">
+      <include>
+        <context ref="raw" />
+				<context ref="structure" />
+        <context ref="html" />
+				<context ref="element" />
+				<context ref="style" />
+				<context ref="string" />
+      </include>
+    </context>
+
+  </definitions>
+</language>

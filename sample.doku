@@ -1,0 +1,280 @@
+~~NOTOC~~
+~~NOCACHE~~
+
+====== A Sample DokuWiki document ======
+
+{{wiki:dokuwiki-128.png?200x50}}
+
+This document is written using the [[doku>DokuWiki]] syntax. You can test drive DokuWiki on its own [[https://www.dokuwiki.org/sandbox:playground|playground]] page.
+  
+===== Basic styles =====
+
+DokuWiki supports **bold**, //italic//, __underlined__ and ''monospaced'' texts, and all of these styles can be freely **__//''combined''//__**.
+
+===== Links =====
+
+External links like https://www.dokuwiki.org and www.dokuwiki.org are recognized automagically. Email addresses like <info@example.org> and info@example.org are recognized, too.
+
+Internal links are created by using [[square brackets]]. You can specify the [[pagename|name of each page]] and point to a local [[syntax#hash|page section]] or [[some:namespace|wiki namespace]]. 
+
+The square brackets syntax also works on [[http://www.google.com|external links]], on [[doku>interwiki|interwikis]] and even on [[\\server\share|Windows shares]].
+
+===== Images and other files =====
+
+Images are inserted with curly brackets.
+
+{{wiki:dokuwiki-128.png}}
+
+{{wiki:dokuwiki-128.png?50}}
+
+{{wiki:dokuwiki-128.png?200x50}}
+
+{{wiki:dokuwiki-128.png?linkonly|Linking to an image}}
+
+You also add a title:
+
+{{ wiki:dokuwiki-128.png |This is the caption}}
+
+Or insert them into a link:
+
+[[http://www.php.net|{{wiki:dokuwiki-128.png}}]].
+[[dw>dada|{{wiki:dokuwiki-128.png|This is the caption}}]].
+
+RSS/ATOM Feed Aggregation with parameter:
+
+{{rss>http://slashdot.org/index.rss 5 author date 1h }}
+
+[[https://www.dokuwiki.org/plugin:fields|Fields Plugin]] :
+
+{{fields>Identifier=project:name}}
+{{fields>Version=1}}
+{{fields>Title=Sample Project Title}}
+
+===== Structural elements =====
+
+You can use up to five different levels of headlines to structure your content.
+
+==== Headline Level 3 ====
+=== Headline Level 4 ===
+== Headline Level 5 ==
+
+===== Paragraphgs =====
+
+Paragraphs are created from blank lines. 
+
+You can also use two backslashes followed by a whitespace or the end of line, like this\\ or like this.\\
+Doing so will force a new line.
+
+===== Lists =====
+
+Indent your text by two spaces and use a ''*'' (for unordered lists) or a ''-'' (for ordered ones) in order to create a list:
+
+  * This is a list
+  * The second item
+    * You may have different levels
+  * Another item
+
+  - The same list but ordered
+  - Another item
+    - Just use indention for deeper levels
+  - That's it
+
+Definition lists require the [[https://www.dokuwiki.org/plugin:definitionlist|definitionlist]] plugin:
+
+  ; term : definition
+  ; term
+  : definition
+
+===== Tables =====
+
+DokuWiki supports a simple syntax to create tables.
+
+^Left Heading   ^ Regular Heading            ^ Right Heading^
+|Row 1 Col 1    | this cell spans vertically | Row 1 Col 3|
+|Row 2 Col 1    | :::                        | Row 2 Col 3|
+|Row 3 Col 1    | :::                        | Row 2 Col 3|
+
+===== Notes =====
+
+You can add footnotes ((This is a footnote)) by using double parentheses.
+
+Using the [[https://www.dokuwiki.org/plugin:changemarks|Changemarks Plugin]], you can get additional notes for !!Highlight notes>highlighted text!!, --Delete notes>deleted text-- and ++Insert notes>inserted text++. 
+
+===== Text Conversions =====
+
+==== Text to Image Conversions ====
+
+Here is an overview of Smileys included in DokuWiki:
+  
+  * 8-) %%  8-)  %%
+  * 8-O %%  8-O  %%
+  * :-( %%  :-(  %%
+  * :-) %%  :-)  %%
+  * =)  %%  =)   %%
+  * :-/ %%  :-/  %%
+  * :-\ %%  :-\  %%
+  * :-? %%  :-?  %%
+  * :-D %%  :-D  %%
+  * :-P %%  :-P  %%
+  * :-O %%  :-O  %%
+  * :-X %%  :-X  %%
+  * :-| %%  :-|  %%
+  * ;-) %%  ;-)  %%
+  * ^_^ %%  ^_^  %%
+  * :?: %%  :?:  %%
+  * :!: %%  :!:  %%
+  * LOL %%  LOL  %%
+  * FIXME %%  FIXME %%
+  * DELETEME %% DELETEME %%
+
+==== Text to HTML Conversions ====
+
+Here is an example of recognized characters.
+
+-> <- <-> => <= <=> >> << -- --- 640x480 (c) (tm) (r)
+"He thought 'It's a man's world'..."
+
+Of course, the syntax file cannot automagically detect all patterns included in DokuWiki's [[doku>entities|pattern file]] or detect its [[doku>config:typography|typography options]].
+
+===== Quoting =====
+
+Some times you want to mark some text to show it's a reply or comment. 
+
+> No we shouldn't
+
+>> Well, I say we should
+
+> Really?
+
+>> Yes!
+
+>>> Then lets do it!
+
+===== No Formatting =====
+
+If you need to display text exactly like it is typed (without any formatting), enclose the area either with ''%%<nowiki>%%'' tags or even simpler, with double percent signs ''<nowiki>%%</nowiki>''.
+
+  Indented text like this isn't formatted either.
+
+===== Comments Syntax =====
+
+When using the [[https://www.dokuwiki.org/plugin:commentsyntax|Comment Syntax Plugin]]... 
+
+We can have a /**
+ * C-style comments
+ **/ syntax that doesn't get in the way.
+
+We also get handy one-line comments for hiding unpublished bits// , even though they can be troublesome...
+
+===== Code Blocks =====
+
+<code>
+This is preformatted code all spaces are preserved: like              <-this
+</code>
+
+<file>
+This is pretty much the same, but you could use it to show that you quoted a file.
+</file>
+
+<code>
+<file php downloadable-code.php>
+<?php echo "This is a downloadable code block."; ?>
+</file>
+</code>
+
+<file php downloadable-file.php>
+<?php echo "And this is a downloadable file."; ?>
+</file>
+
+==== Syntax Highlighting ====
+
+[[https://www.dokuwiki.org/plugin:latex|LaTeX mathematical expressions]] :
+
+<latex>\frac{d}{dx}\left( \int_{0}^{x} f(u)\,du\right)=f(x).</latex>
+
+[[https://www.dokuwiki.org/plugin:graphviz|Graphviz dot graphs]] :
+
+<graphviz dot>
+  graph { 
+    splines=line; 
+    subgraph cluster_0 { 
+    label="Subgraph A"; 
+    a; b; c
+  } 
+
+  subgraph cluster_1 { 
+    label="Subgraph B"; 
+    d; e;
+  }
+
+  a -- e; 
+  a -- d; 
+  b -- d; 
+  b -- e; 
+  c -- d; 
+  c -- e; 
+}	
+</graphviz>
+
+===== Control Macros =====
+
+Some syntax influences how DokuWiki renders a page without creating any output it self. The following control macros are availble:
+
+^ Macro           ^ Description |
+| %%~~NOTOC~~%%   | If this macro is found on the page, no table of contents will be created |
+| %%~~NOCACHE~~%% | DokuWiki caches all output by default. Sometimes this might not be wanted (eg. when the %%<php>%% syntax above is used), adding this macro will force DokuWiki to rerender a page on every call |
+
+===== Syntax Plugins =====
+
+DokuWiki's syntax can be extended by [[doku>plugins|Plugins]]. 
+
+~~INFO:syntaxplugins~~
+
+===== Embedding HTML and PHP =====
+
+If all else fails, HTML Markup may be used to provide additional features, like:
+
+  * <sub>subscripts</sub> and <sup>superscripts with [[link]]</sup>
+  * Marking sections as <ins>inserted text</ins> or <del>deleted [[link]]</del> 
+  * <nowiki>escape text</nowiki>
+
+Therefore, [[https://www.dokuwiki.org/plugin:wrap|Wrap Plugin]] sections are also highlighted :
+
+Like <wrap classes #id width :language>this</wrap> and tbat: <WRAP classes #id />.
+
+----
+
+For those wikis where HTML and PHP embedding is enabled, the markup shows like this in gedit :
+
+<html>
+This is some <span style="color:red;font-size:150%;">inline HTML</span>
+</html>
+<HTML>
+<p style="border:2px dashed red;">And this is some block HTML</p>
+</HTML>
+
+<code>
+<php>
+echo 'A logo generated by PHP:';
+echo '<img src="' . $_SERVER['PHP_SELF'] . '?=' . php_logo_guid() . '" alt="PHP Logo !" />';
+echo '(generated inline HTML)';
+</php>
+<PHP>
+echo '<table class="inline"><tr><td>The same, but inside a block level element:</td>';
+echo '<td><img src="' . $_SERVER['PHP_SELF'] . '?=' . php_logo_guid() . '" alt="PHP Logo !" /></td>';
+echo '</tr></table>';
+</PHP>
+</code>
+
+<php>
+echo 'A logo generated by PHP:';
+echo '<img src="' . $_SERVER['PHP_SELF'] . '?=' . php_logo_guid() . '" alt="PHP Logo !" />';
+echo '(inline HTML)';
+</php>
+
+<PHP>
+echo '<table class="inline"><tr><td>The same, but inside a block level element:</td>';
+echo '<td><img src="' . $_SERVER['PHP_SELF'] . '?=' . php_logo_guid() . '" alt="PHP Logo !" /></td>';
+echo '</tr></table>';
+</PHP>
+
