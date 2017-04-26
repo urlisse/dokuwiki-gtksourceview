@@ -12,6 +12,10 @@ Place a copy of the `dokuwiki.lang` file into either one of these directories:
 
 Start or restart *gedit* and open a *DokuWiki* document. Files ending with the `.doku` and `.dokuwiki` extensions will be immediately highlighted.
 
+For a language file compatible with gtksourceview-2.0, you may want to consider the following project instead:
+
+* https://github.com/zealot128/Gedit-Dokuwiki-Syntax
+
 ## Project Status
 
 This language file contained in this project has been assembled for personal use and has not been widely tested.
